@@ -1,82 +1,22 @@
-import {Button, Keyboard, StyleSheet, TextInput, TouchableWithoutFeedback, View} from 'react-native';
-import {ReactElement, ReactNode, useState} from "react";
-import Checkbox from "expo-checkbox";
-import {Input} from "./components/Input";
+import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {ReactElement, ReactNode} from "react";
+import {MainApp} from "./src/app/App";
+import {Provider} from "react-redux";
+import {store} from "./src/app/store";
 
 export default function App() {
-
-    const [value, setValue] = useState('')
-
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            title: 'HTML',
-            isDone: true,
-        },
-        {
-            id: 2,
-            title: 'CSS',
-            isDone: true,
-        },
-        {
-            id: 3,
-            title: 'JS',
-            isDone: false,
-        },
-        {
-            id: 4,
-            title: 'React-native',
-            isDone: true,
-        },
-        {
-            id: 5,
-            title: 'Angular',
-            isDone: false,
-        },
-    ])
-
-    const addTask = () => {
-        if (value) {
-            setTasks((prevState) => ([...prevState, {id: new Date().getMilliseconds(), title: value, isDone: false}]))
-            setValue("")
-        }
-    }
-
-    const changeStatus = (id: number, value: boolean) => {
-        setTasks((prevState) => prevState.map(i => i.id === id ? {id: i.id, title: i.title, isDone: value} : i))
-    }
-
-    const changeTaskTitle = (id: number, title: string) => {
-        setTasks((prevState) => prevState.map(i => i.id === id ? {id: i.id, title: title, isDone: i.isDone} : i))
-    }
-
-    const deleteTask = (id: number) => {
-        setTasks((prevState) => prevState.filter(i => i.id !== id))
-    }
-
     return (
-        <View style={styles.container}>
-            <HideKeyboard>
-                <View style={[{width: "80%", flexDirection: "row" , alignItems: "center"}]}>
-                    <TextInput value={value} onChangeText={setValue} style={[styles.input, globalStyles.border]}/>
-                    <Button title={"Add task"} onPress={addTask}/>
-                </View>
-            </HideKeyboard>
-            <View style={{width: "50%"}}>
-                {tasks.map((task, index) => {
-                    return <View key={index} style={[styles.boxTask]}>
-                        <Checkbox value={task.isDone} onValueChange={(value) => changeStatus(task.id, value)}/>
-                        <Input taskTitle={task.title} onChange={(value: string) => changeTaskTitle(task.id, value)}/>
-                        <Button title={"delete"} onPress={()=>deleteTask(task.id)}/>
-                    </View>
-                } )}
+        <Provider store={store}>
+            <View style={styles.container}>
+                <MainApp/>
             </View>
-        </View>
+        </Provider>
+
     );
 }
 
-const HideKeyboard = ({children} : {children: ReactNode}) : ReactElement => (
-    <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
+const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
 )
@@ -84,9 +24,9 @@ const HideKeyboard = ({children} : {children: ReactNode}) : ReactElement => (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0f0e17',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#fffffe',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
     input: {
         width: "60%",
@@ -107,10 +47,3 @@ const styles = StyleSheet.create({
     }
 });
 
-const globalStyles = StyleSheet.create({
-    border: {
-        borderStyle: "solid",
-        borderWidth: 1,
-        borderColor: "white5*"
-    }
-})
