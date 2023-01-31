@@ -6,7 +6,8 @@ import {TaskStatuses, TaskType} from '../../../api/todolists-api'
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'
 import {fetchTasksTC} from '../tasks-reducer'
 import {useAppDispatch} from "../../../app/store";
-import {Text, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -55,13 +56,21 @@ export const Todolist = React.memo(function ({...props}: PropsType) {
     }
 
     return <View>
-        <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-        <Text>Delete</Text>
-        {/*<IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>*/}
-        {/*    <Delete/>*/}
-        {/*</IconButton>*/}
+
+        <View style={{flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
+            <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+            <TouchableOpacity>
+                <AntDesign name="delete"
+                           size={20}
+                           color="black"
+                           onPress={removeTodolist}
+                    // disabled={props.todolist.entityStatus === 'loading'}
+                />
+            </TouchableOpacity>
+        </View>
+
         <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
-        <View>
+        <View style={{padding: 8}}>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
                                                 removeTask={props.removeTask}

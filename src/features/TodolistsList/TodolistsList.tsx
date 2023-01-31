@@ -68,7 +68,10 @@ export const TodolistsList: React.FC = () => {
     }, [dispatch])
 
 
-    return <View style={{justifyContent: "space-between"}}>
+    return <View style={{justifyContent: "space-between", marginVertical: 20}}>
+        <View style={[globalStyles.border, {paddingHorizontal: 15}]}>
+            <AddItemForm addItem={addTodolist}/>
+        </View>
         <View>
             {
                 todolists.map(tl => {
@@ -91,9 +94,6 @@ export const TodolistsList: React.FC = () => {
                     </View>
                 })
             }
-        </View>
-        <View style={[globalStyles.border, {paddingHorizontal: 15}]}>
-            <AddItemForm addItem={addTodolist}/>
         </View>
     </View>
 }

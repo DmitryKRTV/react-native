@@ -48,7 +48,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         />
         <View>
             <TouchableOpacity>
-                <Ionicons name="add" size={28} color="black"/>
+                <Ionicons name="add" size={28} color="black" onPress={addItemHandler}/>
             </TouchableOpacity>
         </View>
         {/*<IconButton color="primary" onClick={addItemHandler} disabled={disabled}>*/}
