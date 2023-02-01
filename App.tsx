@@ -1,6 +1,6 @@
 import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 import {ReactElement, ReactNode} from "react";
-import {MainApp} from "./src/app/App";
+import {NavMainApp} from "./src/app/App";
 import {Provider} from "react-redux";
 import {store} from "./src/app/store";
 
@@ -8,7 +8,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <View style={styles.container}>
-                <MainApp/>
+                <NavMainApp/>
             </View>
         </Provider>
 
