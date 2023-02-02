@@ -5,5 +5,10 @@ export const globalStyles = StyleSheet.create({
         borderStyle: "solid",
         borderWidth: 1,
         borderColor: "red"
+    },
+    center: {
+       flex: 1,
+       justifyContent: "center",
+       alignItems: "center"
     }
 })

@@ -8,6 +8,7 @@ import {SafeAreaWrapper} from "../components/SafeAreaWrapper";
 import {HomeProps, ProfileProps, RootStackParamList, UserProps} from "../components/NavigationsTypes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {createDrawerNavigator} from "@react-navigation/drawer";
+import {RootAuth} from "../Screens/AuthScreens/RootAuth";
 
 
 export function MainApp() {
@@ -27,8 +28,8 @@ export function MainApp() {
 }
 
 //-----------------react-navigation---------------
-// const Stack = createNativeStackNavigator<RootStackParamList>();
-const Stack = createBottomTabNavigator<RootStackParamList>(); //Tab
+const Stack = createNativeStackNavigator<RootStackParamList>();
+// const Tab = createBottomTabNavigator<RootStackParamList>(); //Tab
 // const Drawer = createDrawerNavigator<RootStackParamList>(); //Drawer
 
 
@@ -77,7 +78,7 @@ function UserScreen({navigation}: UserProps) {
             <Text>Profile Screen</Text>
             <Button
                 title="Go to Home... again"
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Auth', {screen: "Login"})}
             />
         </View>
     )
@@ -91,6 +92,7 @@ export function NavMainApp() {
             <NavigationContainer>
 
                 <Stack.Navigator>
+                    <Stack.Screen name="Auth" component={RootAuth}/>
                     <Stack.Screen name="Home" component={HomeScreen}/>
                     <Stack.Screen name="Profile" component={ProfileScreen}/>
                     <Stack.Screen name="User" component={UserScreen}/>
